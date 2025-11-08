@@ -1,5 +1,5 @@
 import Default from './demos/default.vue?raw';
-import MaxItems from './demos/MaxItems.vue?raw';
+import MaxItems from './demos/maxItems.vue?raw';
 import ModifySeparator from './demos/modifySeparator.vue?raw';
 import ModifySeparator2 from './demos/modifySeparator2.vue?raw';
 import AutoGenerate from './demos/autoGenerate.vue?raw';

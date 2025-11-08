@@ -68,7 +68,7 @@ export function useBreadcrumb(props, emit) {
       return items
     }
     
-    const lastCount = Math.max(2, max - 1)
+    const lastCount = Math.max(1, max - 2)
     const head = items[0]
     const tail = items.slice(-lastCount)
     
