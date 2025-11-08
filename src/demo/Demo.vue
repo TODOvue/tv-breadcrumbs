@@ -4,7 +4,6 @@ import { TvDemo } from '@todovue/tv-demo'
 import { demos } from "./utils/mocks.js"
 
 const TvBreadcrumbs = defineAsyncComponent(/* webpackChunkName: "TvBreadcrumbs" */() => import('../components/TvBreadcrumbs.vue'))
-
 </script>
 
 <template>
