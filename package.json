@@ -1,0 +1,60 @@
+{
+  "name": "@todovue/tv-breadcrumbs",
+  "private": false,
+  "author": "Cristhian Daza",
+  "description": "A simple and customizable Vue 3 breadcrumbs component for your applications.",
+  "license": "MIT",
+  "version": "0.0.0",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TODOvue/tv-breadcrumbs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TODOvue/tv-breadcrumbs/issues"
+  },
+  "keywords": [
+    "todovue",
+    "front-end",
+    "web",
+    "vue",
+    "vuejs",
+    "vue-js",
+    "breadcrumbs",
+    "show-breadcrumbs",
+    "vue-breadcrumbs",
+    "vue-breadcrumbs-component"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/tv-breadcrumbs.es.js",
+      "require": "./dist/tv-breadcrumbs.cjs.js"
+    }
+  },
+  "main": "dist/tv-breadcrumbs.cjs.js",
+  "module": "dist/tv-breadcrumbs.es.js",
+  "types": "dist/tv-breadcrumbs.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:demo": "cp README.md public/ && VITE_BUILD_TARGET=demo vite build"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.0",
+    "sass": "^1.0.0",
+    "vite": "^7.0.0",
+    "vite-plugin-css-injected-by-js": "^3.0.0",
+    "vite-plugin-dts": "^4.0.0"
+  }
+}
