@@ -1,25 +1,25 @@
-import { computed, getCurrentInstance } from 'vue'
+import { computed, getCurrentInstance, unref } from 'vue'
 
 export function useBreadcrumb(props, emit) {
   const inst = getCurrentInstance()
-  const gp =
-    (inst && inst.appContext && inst.appContext.config && inst.appContext.config.globalProperties) ||
-    {}
+  const gp = (inst?.appContext?.config?.globalProperties) || {}
   
-  const route = gp.$route || null
+  const route = computed(() => gp.$route || null)
   const router = gp.$router || null
   
   const autoItems = computed(() => {
     if (!props.autoGenerate) return []
-    if (!route) return []
     
-    const matched = route.matched || []
+    const currentRoute = unref(route)
+    if (!currentRoute) return []
+    
+    const matched = currentRoute.matched || []
     
     const fromMeta = matched
       .map(r => {
-        const m = r.meta && r.meta.breadcrumb
+        const m = r.meta?.breadcrumb
         if (!m) return null
-        if (typeof m === 'function') return m(route)
+        if (typeof m === 'function') return m(currentRoute)
         if (Array.isArray(m)) return m
         if (typeof m === 'string') return [{ label: m, href: r.path }]
         return null
@@ -31,8 +31,12 @@ export function useBreadcrumb(props, emit) {
       return normalize(fromMeta)
     }
     
-    const pathString = String(route.path || '')
+    const pathString = String(currentRoute.path || '')
     const segments = pathString.split('/').filter(Boolean)
+    
+    if (segments.length === 0) {
+      return normalize([{ label: props.homeLabel, href: '/' }])
+    }
     
     const acc = []
     let current = ''
@@ -76,7 +80,10 @@ export function useBreadcrumb(props, emit) {
   })
   
   function handleClick(evt, item, index) {
-    if (!item || item.disabled) return
+    if (!item || item.disabled) {
+      evt.preventDefault()
+      return
+    }
     
     emit('item-click', {
       item,
@@ -85,7 +92,10 @@ export function useBreadcrumb(props, emit) {
     })
     
     const isLast = index === itemsToRender.value.length - 1
-    if (!item.href || isLast) return
+    if (!item.href || isLast) {
+      evt.preventDefault()
+      return
+    }
     
     if (router && typeof router.push === 'function') {
       evt.preventDefault()

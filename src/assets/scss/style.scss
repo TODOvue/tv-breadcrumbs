@@ -31,6 +31,12 @@
       font-weight: 600;
       cursor: default;
     }
+
+    &--disabled .tv-breadcrumb-link {
+      cursor: not-allowed;
+      opacity: 0.5;
+      pointer-events: none;
+    }
   }
 
   .tv-breadcrumb-separator {
@@ -39,8 +45,7 @@
   }
 }
 
-:root,
-[data-theme='light'] {
+.light-mode {
   .tv-breadcrumb {
     .tv-breadcrumb-link {
       color: variables.$light-text;
@@ -69,7 +74,7 @@
   }
 }
 
-[data-theme='dark'] {
+.dark-mode {
   .tv-breadcrumb {
     .tv-breadcrumb-link {
       color: variables.$dark-text;

@@ -35,7 +35,7 @@ const { itemsToRender, handleClick } = useBreadcrumb(props, emit)
 
 <template>
   <nav
-      class="tv-breadcrumb tv-breadcrumb-root tv-breadcrumb-container"
+    class="tv-breadcrumb tv-breadcrumb-root tv-breadcrumb-container"
     :aria-label="ariaLabel"
   >
     <ol class="tv-breadcrumb-list" role="list">
@@ -44,20 +44,29 @@ const { itemsToRender, handleClick } = useBreadcrumb(props, emit)
         :key="item.key || index"
         class="tv-breadcrumb-item"
         :class="{
-        'tv-breadcrumb-item--current': index === itemsToRender.length - 1,
-        'tv-breadcrumb-item--link': index !== itemsToRender.length - 1
+          'tv-breadcrumb-item--current': index === itemsToRender.length - 1,
+          'tv-breadcrumb-item--link': index !== itemsToRender.length - 1,
+          'tv-breadcrumb-item--disabled': item.disabled
         }"
+        :itemscope="index === itemsToRender.length - 1 ? undefined : true"
+        :itemtype="index === itemsToRender.length - 1 ? undefined : 'https://schema.org/ListItem'"
       >
         <template v-if="index !== itemsToRender.length - 1">
           <a
             class="tv-breadcrumb-link"
-            :href="item.href || '#'"
+            :href="item.disabled ? undefined : (item.href || '#')"
+            :aria-disabled="item.disabled ? 'true' : undefined"
+            :tabindex="item.disabled ? -1 : undefined"
+            itemprop="item"
             @click="handleClick($event, item, index)"
           >
-            <slot name="item" :item="item" :index="index">
-              {{ item.label }}
-            </slot>
+            <span itemprop="name">
+              <slot name="item" :item="item" :index="index">
+                {{ item.label }}
+              </slot>
+            </span>
           </a>
+          <meta itemprop="position" :content="String(index + 1)" />
 
           <span class="tv-breadcrumb-separator" aria-hidden="true">
             <slot name="separator">
