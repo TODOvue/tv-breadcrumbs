@@ -1,5 +1,5 @@
 <template>
-  <TvBreadcrumb
+  <TvBreadcrumbs
     :items="items"
     @item-click="onItemClick"
     @navigate="onNavigate"
@@ -7,7 +7,8 @@
 </template>
 
 <script setup>
-import { TvBreadcrumb } from '@todovue/tv-breadcrumb';
+import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs';
+import '@todovue/tv-breadcrumbs/style.css';
 
 const items =[
   { label: 'Home', href: '/' },

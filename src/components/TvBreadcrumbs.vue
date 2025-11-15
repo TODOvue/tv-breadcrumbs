@@ -90,6 +90,4 @@ const { itemsToRender, handleClick } = useBreadcrumb(props, emit)
   </nav>
 </template>
 
-<style scoped lang="scss">
-@use '../assets/scss/style.scss';
-</style>
+<style></style>
