@@ -1,5 +1,5 @@
 <template>
-  <TvBreadcrumb
+  <TvBreadcrumbs
     auto-generate
     @item-click="onItemClick"
     @navigate="onNavigate"
@@ -7,7 +7,8 @@
 </template>
 
 <script setup>
-import { TvBreadcrumb } from '@todovue/tv-breadcrumb';
+import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs';
+import '@todovue/tv-breadcrumbs/style.css';
 
 // No need to define items when auto-generate is enabled
 // Used $route.path to generate breadcrumb items automatically

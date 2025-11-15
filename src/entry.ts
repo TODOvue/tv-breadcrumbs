@@ -1,4 +1,5 @@
 import TvBreadcrumbs from './components/TvBreadcrumbs.vue'
+import './style.scss'
 
 (TvBreadcrumbs as any).install = (app: any) => {
   app.component('TvBreadcrumbs', TvBreadcrumbs)

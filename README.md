@@ -5,8 +5,15 @@
 A flexible, framework‑agnostic Vue 3 breadcrumb navigation component with auto-generation from routes, custom separators, max items control, and full customization. Works seamlessly in Single Page Apps or Server-Side Rendered (SSR) environments (e.g. Nuxt 3).
 
 [![npm](https://img.shields.io/npm/v/@todovue/tv-breadcrumbs.svg)](https://www.npmjs.com/package/@todovue/tv-breadcrumbs)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/8c4e2401-fefe-4f40-ae83-40681ecc36a5/deploy-status)](https://app.netlify.com/projects/tv-breadcrumbs/deploys)
 [![npm downloads](https://img.shields.io/npm/dm/@todovue/tv-breadcrumbs.svg)](https://www.npmjs.com/package/@todovue/tv-breadcrumbs)
+[![npm total downloads](https://img.shields.io/npm/dt/@todovue/tv-breadcrumbs.svg)](https://www.npmjs.com/package/@todovue/tv-breadcrumbs)
 ![License](https://img.shields.io/github/license/TODOvue/tv-breadcrumbs)
+![Release Date](https://img.shields.io/github/release-date/TODOvue/tv-breadcrumbs)
+![Bundle Size](https://img.shields.io/bundlephobia/minzip/@todovue/tv-breadcrumbs)
+![Node Version](https://img.shields.io/node/v/@todovue/tv-breadcrumbs)
+![Last Commit](https://img.shields.io/github/last-commit/TODOvue/tv-breadcrumbs)
+![Stars](https://img.shields.io/github/stars/TODOvue/tv-breadcrumbs?style=social)
 
 > Demo: https://tv-breadcrumbs.netlify.app/
 
@@ -93,7 +100,15 @@ function onItemClick({ item, index, event }) {
 
 ---
 ## Nuxt 3 / SSR Usage
-Create a plugin file: `plugins/tv-breadcrumbs.client.ts` (or without `.client` suffix as it's SSR-safe):
+First, add the stylesheet to your Nuxt config:
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  css: ['@todovue/tv-breadcrumbs/style.css'],
+})
+```
+
+Then create a plugin file: `plugins/tv-breadcrumbs.client.ts` (or without `.client` suffix as it's SSR-safe):
 ```ts
 import { defineNuxtPlugin } from '#app'
 import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
