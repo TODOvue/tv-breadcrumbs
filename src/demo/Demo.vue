@@ -6,17 +6,14 @@ const TvBreadcrumbs = defineAsyncComponent(/* webpackChunkName: "TvBreadcrumbs" 
 </script>
 
 <template>
-  <tv-demo
+  <TvDemo
     :component="TvBreadcrumbs"
     :variants="demos"
-    nameComponent="TvBreadcrumbs"
-    npmInstall="@todovue/tv-breadcrumbs"
-    sourceLink="https://github.com/TODOvue/tv-breadcrumbs"
-    urlClone="https://github.com/TODOvue/tv-breadcrumbs.git"
-    version="1.0.1"
+    hide-background
+    component-name="TvBreadcrumbs"
+    npm-install="@todovue/tv-breadcrumbs"
+    source-link="https://github.com/TODOvue/tv-breadcrumbs"
+    url-clone="https://github.com/TODOvue/tv-breadcrumbs.git"
+    version="1.1.0"
   />
 </template>
-
-<style scoped>
-
-</style>
