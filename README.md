@@ -1,4 +1,4 @@
-<p align="center"><img width="150" src="https://firebasestorage.googleapis.com/v0/b/todovue-blog.appspot.com/o/logo.png?alt=media&token=d8eb592f-e4a9-4b02-8aff-62d337745f41" alt="TODOvue logo">
+<p align="center"><img width="150" src="https://res.cloudinary.com/dcdfhi8qz/image/upload/v1763663056/uqqtkgp1lg3xdplutpga.png" alt="TODOvue logo">
 </p>
 
 # TODOvue Breadcrumbs (TvBreadcrumbs)
@@ -71,6 +71,7 @@ Global registration (main.js / main.ts):
 import { createApp } from 'vue'
 import App from './App.vue'
 import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
+import '@todovue/tv-breadcrumbs/style.css' // import styles
 
 createApp(App)
   .use(TvBreadcrumbs) // enables <TvBreadcrumbs /> globally
@@ -104,7 +105,9 @@ First, add the stylesheet to your Nuxt config:
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  css: ['@todovue/tv-breadcrumbs/style.css'],
+  modules: [
+    '@todovue/tv-breadcrumbs/nuxt'
+  ]
 })
 ```
 

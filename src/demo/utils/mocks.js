@@ -100,11 +100,9 @@ export const demos = [
 ];
 
 function onItemClick({ item, index, event }) {
-  // logging, analytics, etc.
   console.log('item-click', { item, index, event })
 }
 
 function onNavigate({ to, item, index }) {
-  // post-navegación programática si quieres disparar algo adicional
   console.log('navigate', { to, item, index })
 }

@@ -1,15 +1,21 @@
-import TvBreadcrumbs from './components/TvBreadcrumbs.vue'
+import type { App, Plugin } from 'vue'
+import _TvBreadcrumbs from './components/TvBreadcrumbs.vue'
 import './style.scss'
 
-(TvBreadcrumbs as any).install = (app: any) => {
+const TvBreadcrumbs = _TvBreadcrumbs as typeof _TvBreadcrumbs & Plugin;
+TvBreadcrumbs.install = (app: App) => {
   app.component('TvBreadcrumbs', TvBreadcrumbs)
 };
 
-export const TvBreadcrumbsPlugin = {
-  install(app: any) {
-    app.component('TvBreadcrumbs', TvBreadcrumbs)
+export { TvBreadcrumbs }
+
+export const TvBreadcrumbsPlugin: Plugin = {
+  install: TvBreadcrumbs.install
+};
+export default TvBreadcrumbs;
+
+declare module 'vue' {
+  export interface GlobalComponents {
+    TvBreadcrumbs: typeof TvBreadcrumbs;
   }
 }
-
-export { TvBreadcrumbs }
-export default TvBreadcrumbs
