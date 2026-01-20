@@ -25,12 +25,37 @@ const props = defineProps({
   ariaLabel: {
     type: String,
     default: 'Breadcrumb'
+  },
+  activeLink: {
+    type: Boolean,
+    default: false
   }
 })
+
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const emit = defineEmits(['item-click', 'navigate'])
 
 const { itemsToRender, handleClick } = useBreadcrumb(props, emit)
+
+const dropdownOpen = ref(false)
+
+function toggleDropdown(evt) {
+  evt.stopPropagation()
+  dropdownOpen.value = !dropdownOpen.value
+}
+
+function closeDropdown() {
+  dropdownOpen.value = false
+}
+
+onMounted(() => {
+  window.addEventListener('click', closeDropdown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('click', closeDropdown)
+})
 </script>
 
 <template>
@@ -51,7 +76,48 @@ const { itemsToRender, handleClick } = useBreadcrumb(props, emit)
         :itemscope="index === itemsToRender.length - 1 ? undefined : true"
         :itemtype="index === itemsToRender.length - 1 ? undefined : 'https://schema.org/ListItem'"
       >
-        <template v-if="index !== itemsToRender.length - 1">
+        <template v-if="item.isEllipsis">
+          <span
+            class="tv-breadcrumb-link"
+            role="button"
+            tabindex="0"
+            @click="toggleDropdown"
+            @keydown.enter.prevent="toggleDropdown"
+            @keydown.space.prevent="toggleDropdown"
+          >
+            <slot name="ellipsis" :item="item">
+              {{ item.label }}
+            </slot>
+          </span>
+
+          <div
+            v-if="dropdownOpen"
+            class="tv-breadcrumb-dropdown"
+            :class="{ 'tv-breadcrumb-dropdown--open': dropdownOpen }"
+            @click.stop
+          >
+            <a
+              v-for="(hiddenItem, hIndex) in item.hiddenItems"
+              :key="hiddenItem.key || hIndex"
+              class="tv-breadcrumb-link"
+              :href="hiddenItem.href"
+              @click="handleClick($event, hiddenItem, -1)"
+            >
+              <span v-if="hiddenItem.icon" class="tv-breadcrumb-icon">
+                <i :class="hiddenItem.icon" aria-hidden="true"></i>
+              </span>
+              {{ hiddenItem.label }}
+            </a>
+          </div>
+
+          <span class="tv-breadcrumb-separator" aria-hidden="true">
+            <slot name="separator">
+              {{ separator }}
+            </slot>
+          </span>
+        </template>
+
+        <template v-else-if="index !== itemsToRender.length - 1">
           <a
             class="tv-breadcrumb-link"
             :href="item.disabled ? undefined : (item.href || '#')"
@@ -60,6 +126,9 @@ const { itemsToRender, handleClick } = useBreadcrumb(props, emit)
             itemprop="item"
             @click="handleClick($event, item, index)"
           >
+            <span v-if="item.icon" class="tv-breadcrumb-icon">
+              <i :class="item.icon" aria-hidden="true"></i>
+            </span>
             <span itemprop="name">
               <slot name="item" :item="item" :index="index">
                 {{ item.label }}
@@ -76,10 +145,28 @@ const { itemsToRender, handleClick } = useBreadcrumb(props, emit)
         </template>
 
         <template v-else>
+          <a
+            v-if="activeLink"
+            class="tv-breadcrumb-current tv-breadcrumb-link"
+            :href="item.href || '#'"
+            aria-current="page"
+            @click="handleClick($event, item, index)"
+          >
+            <span v-if="item.icon" class="tv-breadcrumb-icon">
+              <i :class="item.icon" aria-hidden="true"></i>
+            </span>
+            <slot name="current" :item="item" :index="index">
+              {{ item.label }}
+            </slot>
+          </a>
           <span
+            v-else
             class="tv-breadcrumb-current"
             aria-current="page"
           >
+            <span v-if="item.icon" class="tv-breadcrumb-icon">
+              <i :class="item.icon" aria-hidden="true"></i>
+            </span>
             <slot name="current" :item="item" :index="index">
               {{ item.label }}
             </slot>

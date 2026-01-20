@@ -5,6 +5,18 @@ All notable changes to `@todovue/tv-breadcrumbs` will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.3] - 2026-01-20
+
+### Added
+- Added support for icons in breadcrumb items via the `icon` property.
+- Added interactive dropdown for truncated items (when using `maxItems`), allowing users to access hidden links.
+- Added `activeLink` prop to optionally render the current page item as a clickable link.
+
+### Dependencies
+- Updated the `@todovue/tv-demo` dependency to `^1.4.4`.
+- Updated the `sass` dependency to `^1.97.2`.
+- Updated the `vite` dependency to `^7.3.1`.
+
 ## [1.1.2] - 2025-12-27
 
 ### Added
@@ -94,6 +106,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Auto-normalization of breadcrumb items
 - Path segment humanization (converts kebab-case to Title Case)
 
+[1.1.3]: https://github.com/TODOvue/tv-breadcrumbs/pull/6/files
 [1.1.2]: https://github.com/TODOvue/tv-breadcrumbs/pull/5/files
 [1.1.1]: https://github.com/TODOvue/tv-breadcrumbs/pull/4/files
 [1.1.0]: https://github.com/TODOvue/tv-breadcrumbs/pull/3/files

@@ -16,12 +16,11 @@ A flexible, framework‑agnostic Vue 3 breadcrumb navigation component with auto
 
 > Demo: https://ui.todovue.blog/breadcrumbs
 
----
 ## Table of Contents
 - [Features](#features)
 - [Installation](#installation)
 - [Quick Start (SPA)](#quick-start-spa)
-- [Nuxt 3 / SSR Usage](#nuxt-3--ssr-usage)
+- [Nuxt 4 / SSR Usage](#nuxt-4--ssr-usage)
 - [Component Registration Options](#component-registration-options)
 - [Props](#props)
 - [Events](#events)
@@ -36,7 +35,6 @@ A flexible, framework‑agnostic Vue 3 breadcrumb navigation component with auto
 - [Contributing](#contributing)
 - [License](#license)
 
----
 ## Features
 - **Manual items**: Provide a static array of breadcrumb items
 - **Auto-generation**: Automatically generate breadcrumbs from Vue Router routes
@@ -48,7 +46,6 @@ A flexible, framework‑agnostic Vue 3 breadcrumb navigation component with auto
 - **SSR-ready**: Works in both SPA and SSR (Nuxt 3) contexts
 - **Lightweight**: Tree-shakeable with Vue marked external in library build
 
----
 ## Installation
 Using npm:
 ```bash
@@ -63,7 +60,6 @@ Using pnpm:
 pnpm add @todovue/tv-breadcrumbs
 ```
 
----
 ## Quick Start (SPA)
 Global registration (main.js / main.ts):
 ```js
@@ -98,8 +94,7 @@ function onItemClick({ item, index, event }) {
 </template>
 ```
 
----
-## Nuxt 3 / SSR Usage
+## Nuxt 4 / SSR Usage
 First, add the stylesheet to your Nuxt config:
 ```ts
 // nuxt.config.ts
@@ -130,24 +125,23 @@ import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'
 </script>
 ```
 
----
 ## Component Registration Options
-| Approach                                                                  | When to use                                    |
-|---------------------------------------------------------------------------|------------------------------------------------|
-| Global via `app.use(TvBreadcrumbs)`                                       | Many usages across app / design system install |
-| Local named import `{ TvBreadcrumbs }`                                    | Isolated / code-split contexts                 |
+| Approach                                                                        | When to use                                    |
+|---------------------------------------------------------------------------------|------------------------------------------------|
+| Global via `app.use(TvBreadcrumbs)`                                             | Many usages across app / design system install |
+| Local named import `{ TvBreadcrumbs }`                                          | Isolated / code-split contexts                 |
 | Direct default import `import { TvBreadcrumbs } from '@todovue/tv-breadcrumbs'` | Single usage or manual registration            |
 
----
 ## Props
-| Prop          | Type    | Default      | Description                                                                                      |
-|---------------|---------|--------------|--------------------------------------------------------------------------------------------------|
-| items         | Array   | `[]`         | Array of breadcrumb items. Each item: `{ label, href?, disabled?, key? }`.                       |
-| separator     | String  | `'›'`        | Character or string to display between breadcrumb items.                                         |
-| maxItems      | Number  | `0`          | Maximum items to display. If exceeded, shows first item + ellipsis + last N items. 0 = no limit.|
-| autoGenerate  | Boolean | `false`      | Auto-generate breadcrumbs from `$route.path` or route meta (`breadcrumb`).                       |
-| homeLabel     | String  | `'Home'`     | Label for the home item when auto-generating breadcrumbs.                                        |
-| ariaLabel     | String  | `'Breadcrumb'` | ARIA label for the `<nav>` element.                                                             |
+| Prop         | Type    | Default        | Description                                                                                      |
+|--------------|---------|----------------|--------------------------------------------------------------------------------------------------|
+| items        | Array   | `[]`           | Array of breadcrumb items. Each item: `{ label, href?, disabled?, key? }`.                       |
+| separator    | String  | `'›'`          | Character or string to display between breadcrumb items.                                         |
+| maxItems     | Number  | `0`            | Maximum items to display. If exceeded, shows first item + ellipsis + last N items. 0 = no limit. |
+| autoGenerate | Boolean | `false`        | Auto-generate breadcrumbs from `$route.path` or route meta (`breadcrumb`).                       |
+| homeLabel    | String  | `'Home'`       | Label for the home item when auto-generating breadcrumbs.                                        |
+| activeLink   | Boolean | `false`        | If `true`, the current page item (last item) is rendered as a link.                              |
+| ariaLabel    | String  | `'Breadcrumb'` | ARIA label for the `<nav>` element.                                                              |
 
 ### Item Object Structure
 Each item in the `items` array can have:
@@ -155,17 +149,17 @@ Each item in the `items` array can have:
 {
   label: string       // Display text (required)
   href?: string       // Link URL (optional, null for current page)
+  icon?: string       // Icon CSS class (e.g. "fa-solid fa-home") (optional)
   disabled?: boolean  // Disable interaction (optional)
   key?: string        // Unique key for rendering (optional, auto-generated if not provided)
 }
 ```
 
----
 ## Events
-| Event name (kebab) | Payload                                    | Description                                                          |
-|--------------------|--------------------------------------------|----------------------------------------------------------------------|
-| `item-click`       | `{ item, index, event }`                   | Emitted when any breadcrumb item is clicked.                         |
-| `navigate`         | `{ to, item, index }`                      | Emitted when navigation occurs via Vue Router (if router is present).|
+| Event name (kebab) | Payload                  | Description                                                           |
+|--------------------|--------------------------|-----------------------------------------------------------------------|
+| `item-click`       | `{ item, index, event }` | Emitted when any breadcrumb item is clicked.                          |
+| `navigate`         | `{ to, item, index }`    | Emitted when navigation occurs via Vue Router (if router is present). |
 
 Usage:
 ```vue
@@ -186,7 +180,6 @@ function handleNavigate({ to, item, index }) {
 }
 ```
 
----
 ## Slots
 The component provides three slots for full customization:
 
@@ -220,7 +213,6 @@ Customize the separator between breadcrumb items.
 </TvBreadcrumbs>
 ```
 
----
 ## Auto-Generate Mode
 When `autoGenerate` is enabled, the component automatically creates breadcrumbs from your current route.
 
@@ -263,7 +255,6 @@ The component will use:
 1. Route meta `breadcrumb` if defined (string, array, or function)
 2. Fallback to auto-generated path segments if no meta found
 
----
 ## Max Items & Ellipsis
 Control long breadcrumb trails with the `maxItems` prop:
 
@@ -277,10 +268,9 @@ Control long breadcrumb trails with the `maxItems` prop:
 
 The algorithm keeps:
 - First item (always visible)
-- Ellipsis (`…`) as a disabled item
+- Ellipsis (`…`) which is interactive: **click to show hidden items in a dropdown**
 - Last N-1 items (where N = maxItems)
 
----
 ## Router Integration
 TvBreadcrumbs automatically detects and integrates with Vue Router:
 
@@ -292,7 +282,6 @@ TvBreadcrumbs automatically detects and integrates with Vue Router:
 
 **With router**: Navigation is handled programmatically, and the `navigate` event fires.
 
----
 ## Customization (Styles / Theming)
 The component uses scoped styles with BEM-like class names for easy customization:
 
@@ -335,7 +324,6 @@ The component uses scoped styles with BEM-like class names for easy customizatio
 }
 ```
 
----
 ## Accessibility
 TvBreadcrumbs follows WAI-ARIA best practices:
 
@@ -349,7 +337,6 @@ TvBreadcrumbs follows WAI-ARIA best practices:
 - **Keyboard navigation**: All interactive elements are focusable and keyboard-accessible
 - **Screen reader friendly**: Proper semantic structure and ARIA labels
 
----
 ## SSR Notes
 - No direct DOM (`window` / `document`) access → safe for SSR
 - Router access is wrapped with safe guards (checks for `$route` / `$router` existence)
@@ -357,7 +344,6 @@ TvBreadcrumbs follows WAI-ARIA best practices:
 - Styles are automatically injected when importing the component
 - Auto-generation mode gracefully handles missing router in SSR context
 
----
 ## Development
 ```bash
 git clone https://github.com/TODOvue/tv-breadcrumbs.git
@@ -368,14 +354,11 @@ npm run build   # build library
 ```
 Local demo served from Vite using `index.html` + `src/demo` examples.
 
----
 ## Contributing
 PRs and issues welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
 
----
 ## License
 MIT © TODOvue
 
----
 ### Attributions
 Crafted for the TODOvue component ecosystem

@@ -3,6 +3,8 @@ import MaxItems from './demos/maxItems.vue?raw';
 import ModifySeparator from './demos/modifySeparator.vue?raw';
 import ModifySeparator2 from './demos/modifySeparator2.vue?raw';
 import AutoGenerate from './demos/autoGenerate.vue?raw';
+import Icons from './demos/icons.vue?raw';
+import ActiveLink from './demos/activeLink.vue?raw';
 
 export const demos = [
   {
@@ -27,7 +29,7 @@ export const demos = [
   {
     id: 2,
     title: 'With max items',
-    description: 'Breadcrumb navigation with a maximum number of items displayed.',
+    description: 'Breadcrumb navigation with a maximum number of items displayed. Click the ellipsis to see hidden items.',
     propsData: {
       items: [
         { label: 'Home', href: '/' },
@@ -96,6 +98,37 @@ export const demos = [
       navigate: onNavigate,
     },
     html: AutoGenerate,
+  },
+  {
+    id: 6,
+    title: 'With Icons',
+    description: 'Breadcrumb items with icons.',
+    propsData: {
+      items: [
+        { label: 'Home', href: '/', icon: 'fa-solid fa-house' },
+        { label: 'Settings', href: '/settings', icon: 'fa-solid fa-gear' },
+        { label: 'Profile', icon: 'fa-solid fa-user' }
+      ],
+      itemClick: onItemClick,
+      navigate: onNavigate,
+    },
+    html: Icons,
+  },
+  {
+    id: 7,
+    title: 'Active Link',
+    description: 'The current page item is rendered as a link.',
+    propsData: {
+      items: [
+        { label: 'Home', href: '/' },
+        { label: 'Blog', href: '/blog' },
+        { label: 'Post-123', href: '/blog/post-123' }
+      ],
+      activeLink: true,
+      itemClick: onItemClick,
+      navigate: onNavigate,
+    },
+    html: ActiveLink,
   }
 ];
 
