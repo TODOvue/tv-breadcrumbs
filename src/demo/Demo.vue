@@ -9,6 +9,7 @@ const TvBreadcrumbs = defineAsyncComponent(/* webpackChunkName: "TvBreadcrumbs" 
   <TvDemo
     :component="TvBreadcrumbs"
     :variants="demos"
+    :manual-emits="['item-click', 'navigate']"
     hide-background
     component-name="TvBreadcrumbs"
     npm-install="@todovue/tv-breadcrumbs"
