@@ -42,6 +42,49 @@
     user-select: none;
     opacity: 0.7;
   }
+
+  .tv-breadcrumb-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tv-breadcrumb-item {
+    position: relative;
+  }
+
+  .tv-breadcrumb-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--tv-breadcrumb-bg-color, #fff);
+    border: 1px solid var(--tv-breadcrumb-border-color, #e2e8f0);
+    border-radius: 0.375rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 0.5rem 0;
+    min-width: 12rem;
+    z-index: 50;
+    display: none;
+    flex-direction: column;
+    margin-top: 0.5rem;
+
+    &--open {
+      display: flex;
+    }
+
+    .tv-breadcrumb-link {
+      display: block;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      color: inherit;
+      white-space: nowrap;
+      
+      &:hover {
+        background-color: var(--tv-breadcrumb-hover-bg, #f1f5f9);
+      }
+    }
+  }
 }
 
 .tv-breadcrumb {
