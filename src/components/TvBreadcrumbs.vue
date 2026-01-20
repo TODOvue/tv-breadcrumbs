@@ -76,7 +76,6 @@ onUnmounted(() => {
         :itemscope="index === itemsToRender.length - 1 ? undefined : true"
         :itemtype="index === itemsToRender.length - 1 ? undefined : 'https://schema.org/ListItem'"
       >
-        <!-- Case: Ellipsis Dropdown -->
         <template v-if="item.isEllipsis">
           <span
             class="tv-breadcrumb-link"
@@ -90,9 +89,9 @@ onUnmounted(() => {
               {{ item.label }}
             </slot>
           </span>
-          
-          <div 
-            v-if="dropdownOpen" 
+
+          <div
+            v-if="dropdownOpen"
             class="tv-breadcrumb-dropdown"
             :class="{ 'tv-breadcrumb-dropdown--open': dropdownOpen }"
             @click.stop
@@ -118,7 +117,6 @@ onUnmounted(() => {
           </span>
         </template>
 
-        <!-- Case: Normal Link -->
         <template v-else-if="index !== itemsToRender.length - 1">
           <a
             class="tv-breadcrumb-link"
@@ -146,7 +144,6 @@ onUnmounted(() => {
           </span>
         </template>
 
-        <!-- Case: Current Page -->
         <template v-else>
           <a
             v-if="activeLink"
