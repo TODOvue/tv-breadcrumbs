@@ -143,7 +143,6 @@ function normalize(arr) {
         ...x,
         label,
         href,
-        href,
         key,
         icon: x.icon
       }
